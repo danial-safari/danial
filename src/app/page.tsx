@@ -23,7 +23,6 @@ export default function Home() {
         <ExperienceSection />
         <BlogSection />
         <ContactSection />
-        <Footer />
       </motion.div>
     </main>
   );
