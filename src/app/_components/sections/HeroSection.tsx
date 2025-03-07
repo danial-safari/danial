@@ -104,7 +104,7 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className="relative min-h-[100svh] flex items-center justify-center overflow-hidden py-20 sm:py-32">
+    <section id='hero' className="relative min-h-[100svh] flex items-center justify-center overflow-hidden py-20 sm:py-32">
       {/* Background Elements */}
       <div className="absolute inset-0 w-full h-full">
         {/* Gradient Background */}

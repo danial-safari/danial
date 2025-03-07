@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { stats } from '@/data/about';
+import { stats } from '@/data/homeSections/about';
 import { StatCard } from './StatCard';
 
 const Stats = () => {

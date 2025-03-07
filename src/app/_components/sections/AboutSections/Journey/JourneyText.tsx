@@ -1,4 +1,4 @@
-interface JourneyTextProps {
+type JourneyTextProps = {
     paragraphs: string[];
 }
 

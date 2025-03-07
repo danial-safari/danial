@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { journeyContent } from '@/data/about';
+import { journeyContent } from '@/data/homeSections/about';
 import { JourneyText } from './JourneyText';
 
 const Journey = () => {

@@ -1,10 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { skills } from '@/data/about';
+import { skills } from '@/data/homeSections/about';
 import { SkillCategory } from './SkillCategory';
 
-const Skills = () => { 
+const Skills = () => {
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}

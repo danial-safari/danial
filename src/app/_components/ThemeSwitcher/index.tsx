@@ -9,17 +9,7 @@ interface ThemeSwitcherProps {
 }
 
 export default function ThemeSwitcher({ className = '' }: ThemeSwitcherProps) {
-    const [mounted, setMounted] = useState(false);
     const { resolvedTheme, setTheme } = useTheme();
-
-    // Avoid hydration mismatch
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-
-    if (!mounted) {
-        return null;
-    }
 
     return (
         <motion.button
