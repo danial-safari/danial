@@ -1,18 +1,9 @@
 import { motion } from 'framer-motion';
-import { ReactNode } from 'react';
-import { handleMouseMove } from '@/utils/mouseTracker';
-
-interface CardProps {
-    icon?: ReactNode;
-    title: string;
-    description: string;
-    className?: string;
-}
+import { CardProps } from './card.types';
 
 const Card = ({ icon, title, description, className = '' }: CardProps) => {
     return (
         <motion.div
-            onMouseMove={handleMouseMove}
             className={`
                 relative 
                 group 

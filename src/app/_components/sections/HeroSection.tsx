@@ -1,8 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Button from '../ui/Button';
 import { ReactNode } from 'react';
+import { Button } from '../ui/Button';
 
 interface IconConfig {
   icon: ReactNode;
@@ -157,7 +157,7 @@ const HeroSection = () => {
             >
               <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight">
                 <span className="bg-gradient-to-r from-primary via-primary/80 to-secondary bg-clip-text text-transparent">
-                  Frontend Developer
+                  Danial Safari
                 </span>
               </h1>
             </motion.div>
@@ -168,7 +168,7 @@ const HeroSection = () => {
               transition={{ duration: 0.8, delay: 0.5 }}
               className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto"
             >
-              Building exceptional digital experiences with modern technologies
+              Turning Modern Designs into High-Performance, Responsive Web Experience
             </motion.p>
           </div>
 

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
 import EducationModel from '../three/EducationModel';
-import Card from '../ui/Card';
+import Card from '../ui/Card/card';
 
 const EducationSection = () => {
     const education = [

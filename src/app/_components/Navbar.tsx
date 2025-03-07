@@ -4,8 +4,9 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Logo from './ui/Logo';
 import Link from 'next/link';
-import Button from './ui/Button';
 import ThemeSwitcher from './ThemeSwitcher';
+import { Button } from './ui/Button';
+import { IconArrowRight } from './icons/icons';
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -79,19 +80,7 @@ const Navbar = () => {
                         {/* Let's Talk Button */}
                         <Button href="#contact" variant="primary" size="sm">
                             Let's Talk
-                            <svg
-                                className="w-4 h-4"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                                />
-                            </svg>
+                            <IconArrowRight className="w-4 h-4" />
                         </Button>
 
                         {/* Theme Switcher */}

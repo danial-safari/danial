@@ -1,18 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ReactNode } from 'react';
+import { ButtonProps } from './button.types';
 
-interface ButtonProps {
-    children: ReactNode;
-    variant?: 'primary' | 'secondary' | 'outline' | 'text';
-    href?: string;
-    onClick?: () => void;
-    className?: string;
-    size?: 'sm' | 'md' | 'lg';
-}
-
-const Button = ({ children, variant = 'primary', href, onClick, className = '', size = 'md' }: ButtonProps) => {
+export const Button = ({ children, variant = 'primary', href, onClick, className = '', size = 'md' }: ButtonProps) => {
     const sizeStyles = {
         sm: 'px-4 py-2 text-sm',
         md: 'px-6 py-2.5 text-base',
@@ -111,4 +102,3 @@ const Button = ({ children, variant = 'primary', href, onClick, className = '', 
     );
 };
 
-export default Button; 
