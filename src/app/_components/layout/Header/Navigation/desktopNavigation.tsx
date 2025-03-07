@@ -1,11 +1,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import ThemeSwitcher from '../../ThemeSwitcher';
+import ThemeSwitcher from '@/app/_components/common/ThemeSwitcher';
 import NavLink from './navLink';
 import Logo from '../Logo';
 import { DesktopNavigationProps } from '../header.types';
-import { CallToAction } from '../CallToAction';
+import { CallToAction } from '../CTA';
 
 export const DesktopNavigation = ({ isScrolled, activeSection, navLinks }: DesktopNavigationProps) => {
     return (

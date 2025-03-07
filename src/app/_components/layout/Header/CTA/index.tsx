@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { Button } from '../../ui/Button';
-import { IconArrowRight } from '../../icons/icons';
+import { Button } from '@/app/_components/ui/Button';
+import { IconArrowRight } from '@/app/_components/icons';
 export const CallToAction = () => {
     return (
         <motion.div

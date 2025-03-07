@@ -1,8 +1,8 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { Button } from '../../ui/Button';
-import { IconArrowRight } from '../../icons/icons';
+import { Button } from '@/app/_components/ui/Button';
+import { IconArrowRight } from '@/app/_components/icons';
 import NavLink from './navLink';
 import { MobileNavigationProps } from '../header.types';
 

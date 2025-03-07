@@ -1,4 +1,4 @@
-import { IconCheck } from '@/app/_components/icons/icons';
+import { IconCheck } from '@/app/_components/icons';
 type SkillItemProps = {
     skill: string;
 }

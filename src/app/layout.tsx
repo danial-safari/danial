@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
-import Header from "./_components/header";
+import Header from "./_components/layout/Header";
 import { AnimatePresence } from "framer-motion";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import Footer from './_components/sections/Footer';
