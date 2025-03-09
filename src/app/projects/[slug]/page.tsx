@@ -1,11 +1,13 @@
 'use client';
 
-import { useParams } from 'next/navigation';
+import { useParams, notFound } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
+import { Project, ProjectStatus } from '@/app/_components/ProjectStatus/types';
+import { getStatusColor, getPriorityColor } from '@/app/_components/ProjectStatus/utils/styles';
 
 const projects = [
     {
@@ -36,140 +38,141 @@ const projects = [
     // Add more detailed project data here
 ];
 
-export default function ProjectPage() {
-    const params = useParams();
-    const project = projects.find(p => p.slug === params.slug);
+// This would typically come from your API or database
+const getProject = async (slug: string): Promise<Project | null> => {
+    // Mock data - replace with actual data fetching
+    const projects: Project[] = [
+        {
+            id: '1',
+            title: 'Website Redesign',
+            description: 'Complete overhaul of the company website with modern design principles and improved user experience.',
+            status: 'In Progress',
+            startDate: '2024-03-01',
+            estimatedEndDate: '2024-04-15',
+            progress: 60,
+            priority: 'High',
+            team: [
+                { name: 'John Doe', role: 'Lead Designer' },
+                { name: 'Jane Smith', role: 'Developer' },
+            ],
+            slug: 'website-redesign',
+            logo: '/projects/website-redesign.png',
+        },
+        // Add more projects as needed
+    ];
+
+    return projects.find(p => p.slug === slug) || null;
+};
+
+export default async function ProjectPage({ params }: { params: { slug: string } }) {
+    const project = await getProject(params.slug);
 
     if (!project) {
-        return (
-            <div className="min-h-screen flex items-center justify-center">
-                <div className="text-center">
-                    <h1 className="text-4xl font-bold mb-4">Project Not Found</h1>
-                    <Link href="/projects" className="text-primary hover:text-primary/80">
-                        Back to Projects
-                    </Link>
-                </div>
-            </div>
-        );
+        notFound();
     }
 
     return (
-        <main className="min-h-screen py-20 px-4 relative">
-          
-            <div className="max-w-7xl mx-auto">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                >
-                    <Link
-                        href="/projects"
-                        className="inline-flex items-center text-gray-400 hover:text-white mb-8"
-                    >
-                        <svg
-                            className="w-5 h-5 mr-2"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M10 19l-7-7m0 0l7-7m-7 7h18"
-                            />
-                        </svg>
-                        Back to Projects
-                    </Link>
-
+        <main className="min-h-screen py-20">
+            <div className="container mx-auto px-4">
+                <div className="max-w-4xl mx-auto">
                     {/* Project Header */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-                        <div className="relative h-[400px] rounded-2xl overflow-hidden">
-                            <Image
-                                src={project.image}
-                                alt={project.title}
-                                fill
-                                className="object-cover"
-                                sizes="(max-width: 768px) 100vw, 50vw"
-                                priority
-                            />
-                        </div>
-                        <div>
-                            <h1 className="text-4xl md:text-5xl font-bold mb-4">{project.title}</h1>
-                            <p className="text-gray-400 mb-6">{project.description}</p>
-                            <div className="flex flex-wrap gap-3 mb-8">
-                                {project.tags.map((tag) => (
-                                    <span
-                                        key={tag}
-                                        className="px-4 py-2 rounded-full bg-primary/10 text-primary text-sm"
-                                    >
-                                        {tag}
+                    <div className="flex items-start gap-6 mb-8">
+                        <div className="w-24 h-24 flex-shrink-0">
+                            {project.logo ? (
+                                <Image
+                                    src={project.logo}
+                                    alt={`${project.title} logo`}
+                                    width={96}
+                                    height={96}
+                                    className="rounded-xl object-cover"
+                                />
+                            ) : (
+                                <div className="w-24 h-24 rounded-xl bg-primary/10 flex items-center justify-center">
+                                    <span className="text-4xl font-semibold text-primary">
+                                        {project.title.charAt(0)}
                                     </span>
-                                ))}
-                            </div>
-                            <div className="flex gap-4">
-                                <a
-                                    href={project.liveUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="px-6 py-3 rounded-full bg-primary hover:bg-primary/80 text-white font-medium transition-colors"
-                                >
-                                    View Live
-                                </a>
-                                <a
-                                    href={project.githubUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="px-6 py-3 rounded-full bg-gray-800 hover:bg-gray-700 text-white font-medium transition-colors"
-                                >
-                                    View Code
-                                </a>
+                                </div>
+                            )}
+                        </div>
+                        <div className="flex-1">
+                            <h1 className="text-3xl font-bold mb-2">{project.title}</h1>
+                            <p className="text-lg text-muted-foreground mb-4">
+                                {project.description}
+                            </p>
+                            <div className="flex items-center gap-3">
+                                <span className={`px-3 py-1 text-sm rounded-full ${getStatusColor(project.status)}`}>
+                                    {project.status}
+                                </span>
+                                {project.priority && (
+                                    <span className={`px-3 py-1 text-sm rounded-full ${getPriorityColor(project.priority)}`}>
+                                        {project.priority} Priority
+                                    </span>
+                                )}
                             </div>
                         </div>
                     </div>
 
                     {/* Project Details */}
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                        <div className="lg:col-span-2">
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: 0.2 }}
-                                className="bg-background/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-800"
-                            >
-                                <h2 className="text-2xl font-bold mb-6">Project Overview</h2>
-                                <div className="prose prose-invert max-w-none">
-                                    {project.fullDescription.split('\n').map((paragraph, index) => (
-                                        <p key={index} className="mb-4">
-                                            {paragraph}
-                                        </p>
-                                    ))}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {/* Progress Section */}
+                        <div className="bg-background/50 backdrop-blur-sm rounded-xl p-6 border border-foreground/10">
+                            <h2 className="text-xl font-semibold mb-4">Progress</h2>
+                            <div className="space-y-4">
+                                <div>
+                                    <div className="flex justify-between text-sm mb-2">
+                                        <span className="text-muted-foreground">Completion</span>
+                                        <span className="font-medium">{project.progress}%</span>
+                                    </div>
+                                    <div className="h-3 bg-foreground/10 rounded-full overflow-hidden">
+                                        <div
+                                            className="h-full bg-primary rounded-full transition-all duration-500"
+                                            style={{ width: `${project.progress}%` }}
+                                        />
+                                    </div>
                                 </div>
-                            </motion.div>
+                                <div className="pt-4 border-t border-foreground/10">
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <p className="text-sm text-muted-foreground">Start Date</p>
+                                            <p className="font-medium">
+                                                {new Date(project.startDate).toLocaleDateString()}
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p className="text-sm text-muted-foreground">End Date</p>
+                                            <p className="font-medium">
+                                                {new Date(project.estimatedEndDate).toLocaleDateString()}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div>
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: 0.4 }}
-                                className="bg-background/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-800"
-                            >
-                                <h2 className="text-2xl font-bold mb-6">Technologies Used</h2>
-                                <div className="space-y-6">
-                                    {project.technologies.map((tech) => (
-                                        <div key={tech.name}>
-                                            <h3 className="text-lg font-semibold text-primary mb-2">
-                                                {tech.name}
-                                            </h3>
-                                            <p className="text-gray-400">{tech.description}</p>
+                        {/* Team Section */}
+                        <div className="bg-background/50 backdrop-blur-sm rounded-xl p-6 border border-foreground/10">
+                            <h2 className="text-xl font-semibold mb-4">Team Members</h2>
+                            <div className="space-y-4">
+                                {project.team?.map((member) => (
+                                    <div
+                                        key={member.name}
+                                        className="flex items-center gap-3 p-3 rounded-lg hover:bg-foreground/5 transition-colors"
+                                    >
+                                        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                                            <span className="text-lg font-medium text-primary">
+                                                {member.name[0]}
+                                            </span>
                                         </div>
-                                    ))}
-                                </div>
-                            </motion.div>
+                                        <div>
+                                            <p className="font-medium">{member.name}</p>
+                                            <p className="text-sm text-muted-foreground">{member.role}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
-                </motion.div>
+                </div>
             </div>
         </main>
     );

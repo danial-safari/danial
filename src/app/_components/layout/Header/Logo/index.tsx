@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 export const Logo = () => {
     const [isHovered, setIsHovered] = useState(false);
-
+    
     return (
         <Link
             href="/#hero"

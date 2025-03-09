@@ -53,10 +53,10 @@ export const Button = ({ children, variant = 'primary', href, onClick, className
             bg-transparent
             border-2
             border-primary
-            hover:bg-primary/10
             text-primary
-            hover:text-primary-foreground
+            hover:text-primary
             hover:-translate-y-0.5
+            04661
             active:translate-y-0
             font-medium
         `,
